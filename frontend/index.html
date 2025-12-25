@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two-Tier DevOps Platform | Modern Architecture</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            min-height: 100vh;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Animated Background Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0) translateX(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(50px);
+                opacity: 0;
+            }
+        }
+
+        /* Gradient Orbs */
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: 0;
+            animation: orbFloat 20s infinite ease-in-out;
+        }
+
+        .orb1 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            top: -200px;
+            left: -200px;
+        }
+
+        .orb2 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            bottom: -250px;
+            right: -250px;
+            animation-delay: -10s;
+        }
+
+        .orb3 {
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(135deg, #4facfe, #00f2fe);
+            top: 50%;
+            left: 50%;
+            animation-delay: -5s;
+        }
+
+        @keyframes orbFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(100px, -100px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-50px, 50px) scale(0.9);
+            }
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            font-size: 48px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+            animation: gradientShift 3s ease infinite;
+            background-size: 200% 200%;
+        }
+
+        @keyframes gradientShift {
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .tagline {
+            font-size: 20px;
+            color: rgba(255, 255, 255, 0.7);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .status-item {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            animation: statusPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes statusPulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(102, 126, 234, 0.3);
+            }
+
+            50% {
+                box-shadow: 0 0 30px rgba(102, 126, 234, 0.6);
+            }
+        }
+
+        .status-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(102, 126, 234, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        /* Architecture Cards */
+        .architecture {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .arch-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            animation: slideUp 1s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .arch-card:nth-child(1) {
+            animation-delay: 0.2s;
+        }
+
+        .arch-card:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .arch-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .arch-card:hover::before {
+            opacity: 1;
+        }
+
+        .arch-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: rgba(102, 126, 234, 0.5);
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            margin-bottom: 25px;
+            animation: iconRotate 3s ease-in-out infinite;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes iconRotate {
+
+            0%,
+            100% {
+                transform: rotateY(0deg);
+            }
+
+            50% {
+                transform: rotateY(180deg);
+            }
+        }
+
+        .card-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-desc {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .tech-badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .tech-badge:hover {
+            background: rgba(102, 126, 234, 0.3);
+            border-color: rgba(102, 126, 234, 0.5);
+            transform: scale(1.05);
+        }
+
+        /* API Testing Section */
+        .api-section {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 25px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 50px 0;
+            animation: slideUp 1s ease-out 0.6s;
+            animation-fill-mode: both;
+        }
+
+        .api-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .api-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .api-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .api-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .api-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .api-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5);
+        }
+
+        .api-btn:active {
+            transform: translateY(-1px);
+        }
+
+        .api-response {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-family: 'Courier New', monospace;
+            min-height: 150px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .response-text {
+            color: #4ade80;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: rgba(255, 255, 255, 0.5);
+            animation: fadeIn 2s ease-out;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover {
+            color: #fff;
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 36px;
+            }
+
+            .tagline {
+                font-size: 16px;
+            }
+
+            .arch-card {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background Elements -->
+    <div class="particles" id="particles"></div>
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 class="logo">🐳 DevOps Platform</h1>
+            <p class="tagline">Two-Tier Microservices Architecture</p>
+        </header>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>Frontend Active</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>Backend Connected</span>
+            </div>
+            <div class="status-item">
+                <div class="status-dot"></div>
+                <span>Docker Running</span>
+            </div>
+        </div>
+
+        <!-- Architecture Cards -->
+        <div class="architecture">
+            <!-- Frontend Card -->
+            <div class="arch-card">
+                <div class="card-icon">🌐</div>
+                <h2 class="card-title">Frontend Layer</h2>
+                <p class="card-desc">
+                    High-performance static content delivery powered by Nginx, featuring
+                    modern UI/UX with advanced animations and seamless API integration.
+                </p>
+                <div class="card-tech">
+                    <span class="tech-badge">Nginx Alpine</span>
+                    <span class="tech-badge">Port 80</span>
+                    <span class="tech-badge">Reverse Proxy</span>
+                    <span class="tech-badge">Static Assets</span>
+                </div>
+            </div>
+
+            <!-- Backend Card -->
+            <div class="arch-card">
+                <div class="card-icon">🐍</div>
+                <h2 class="card-title">Backend Layer</h2>
+                <p class="card-desc">
+                    RESTful API service built with Flask, providing robust endpoints
+                    for data processing, health monitoring, and business logic execution.
+                </p>
+                <div class="card-tech">
+                    <span class="tech-badge">Python 3.10</span>
+                    <span class="tech-badge">Flask API</span>
+                    <span class="tech-badge">Port 5000</span>
+                    <span class="tech-badge">JSON REST</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Testing Section -->
+        <div class="api-section">
+            <h2 class="api-title">🔗 Live API Testing</h2>
+            <div class="api-controls">
+                <button class="api-btn" onclick="testBackendHome()">
+                    <span style="position: relative; z-index: 1;">Test Backend Home</span>
+                </button>
+                <button class="api-btn" onclick="testBackendHealth()">
+                    <span style="position: relative; z-index: 1;">Health Check</span>
+                </button>
+                <button class="api-btn" onclick="testProxyAPI()">
+                    <span style="position: relative; z-index: 1;">Test Proxy /api</span>
+                </button>
+            </div>
+            <div class="api-response" id="apiResponse">
+                <span style="color: rgba(255,255,255,0.5);">
+                    Click any button above to test the API endpoints...
+                </span>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="footer-links">
+                <a href="http://localhost:5000" class="footer-link" target="_blank">Backend Direct</a>
+                <a href="/api" class="footer-link">Proxied API</a>
+                <a href="http://localhost:5000/health" class="footer-link" target="_blank">Health Status</a>
+                <a href="https://github.com/rohanjob/Practice" class="footer-link" target="_blank">GitHub Repository</a>
+            </div>
+            <p>&copy; 2025 Two-Tier DevOps Platform | Built with Docker & Love</p>
+        </footer>
+    </div>
+
+    <script>
+        // Generate animated particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 50;
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 6 + 's';
+                particle.style.animationDuration = (Math.random() * 3 + 3) + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // API Testing Functions
+        async function testBackendHome() {
+            const responseDiv = document.getElementById('apiResponse');
+            responseDiv.innerHTML = '<div class="loading"></div> <span style="margin-left: 10px;">Connecting to backend...</span>';
+
+            try {
+                const response = await fetch('http://localhost:5000/');
+                const data = await response.json();
+                displayResponse('GET http://localhost:5000/', data);
+            } catch (error) {
+                displayError('Backend connection failed. Is the container running?');
+            }
+        }
+
+        async function testBackendHealth() {
+            const responseDiv = document.getElementById('apiResponse');
+            responseDiv.innerHTML = '<div class="loading"></div> <span style="margin-left: 10px;">Checking health status...</span>';
+
+            try {
+                const response = await fetch('http://localhost:5000/health');
+                const data = await response.json();
+                displayResponse('GET http://localhost:5000/health', data);
+            } catch (error) {
+                displayError('Health check failed. Backend may be down.');
+            }
+        }
+
+        async function testProxyAPI() {
+            const responseDiv = document.getElementById('apiResponse');
+            responseDiv.innerHTML = '<div class="loading"></div> <span style="margin-left: 10px;">Testing proxy endpoint...</span>';
+
+            try {
+                const response = await fetch('/api');
+                const data = await response.json();
+                displayResponse('GET /api (proxied)', data);
+            } catch (error) {
+                displayError('Proxy connection failed.');
+            }
+        }
+
+        function displayResponse(endpoint, data) {
+            const responseDiv = document.getElementById('apiResponse');
+            responseDiv.innerHTML = `
+                <div style="margin-bottom: 15px;">
+                    <span style="color: #4ade80; font-weight: bold;">✓ Success</span>
+                    <span style="color: rgba(255,255,255,0.5); margin-left: 10px;">${endpoint}</span>
+                </div>
+                <pre class="response-text">${JSON.stringify(data, null, 2)}</pre>
+            `;
+        }
+
+        function displayError(message) {
+            const responseDiv = document.getElementById('apiResponse');
+            responseDiv.innerHTML = `
+                <div style="color: #ef4444; font-weight: bold;">✗ Error</div>
+                <div style="color: rgba(255,255,255,0.7); margin-top: 10px;">${message}</div>
+                <div style="color: rgba(255,255,255,0.5); margin-top: 15px; font-size: 14px;">
+                    Make sure Docker containers are running:<br>
+                    <code style="color: #4ade80;">docker compose up --build</code>
+                </div>
+            `;
+        }
+
+        // Initialize
+        createParticles();
+
+        // Add smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        console.log('%c🐳 Two-Tier DevOps Platform Loaded', 'color: #667eea; font-size: 20px; font-weight: bold;');
+        console.log('%cFrontend: Nginx (Port 80)', 'color: #4ade80;');
+        console.log('%cBackend: Flask API (Port 5000)', 'color: #4ade80;');
+    </script>
+</body>
+
+</html>
